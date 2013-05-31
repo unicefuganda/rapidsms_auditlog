@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>AuditLog.::.Logs</title>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}auditlog/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}auditlog/css/style.css"/>
+</head>
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <li><a href="{% url  auditlog_dashboard %}">Database Logs</a></li>
+          <li class="active"><a href="{% url logs %}">LogFile View</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br><br><br><br>
+
+    <div class="container">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>IP Address</th>
+                <th>User</th>
+                <th>Log Type</th>
+                <th>Action</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+      <tbody>
+        {% for log in logs.object_list %}
+          <tr>
+            <td>
+              {{ log.created }}
+            </td>
+            <td>
+              {{ log.remote_addr }}
+            </td>
+            <td>
+              {{ log.user }}
+            </td>
+            <td>
+              {{ log.logtype }}
+            </td>
+            <td>
+              {{ log.action }}
+            </td>
+            <td>
+              {{ log.detail }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if logs.object_list > 0 %}
+    <div class="pagination">
+        <ul>
+        {% if logs.has_previous %}
+            <li><a href="?page={{ logs.previous_page_number }}{{ getvars }}{{ hashtag }}" class="prev">&lsaquo;&lsaquo; Prev</a></li>
+        {% else %}
+            <li class="disabled prev"><a href="#">&lsaquo;&lsaquo; Prev</a></li>
+        {% endif %}
+         <li  class="disabled prev">
+           <a href="#">
+            {{ logs }}
+           </a>
+         </li>
+        {% if logs.has_next %}
+            <li><a href="?page={{ logs.next_page_number }}{{ getvars }}{{ hashtag }}" class="next">Next &rsaquo;&rsaquo;</a></li>
+        {% else %}
+            <li class="disabled next"><a href="#">Next &rsaquo;&rsaquo;</a></li>
+        {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

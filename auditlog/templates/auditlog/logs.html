@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>AuditLog.::.Logs</title>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}auditlog/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}auditlog/css/style.css"/>
+</head>
+<body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <li><a href="{% url  auditlog_dashboard %}">Database Log</a></li>
+          <li class="active"><a href="{% url logs %}">LogFile View</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br><br><br><br>
+
+    <div class="container well">
+        <ul>
+            {% for l in logs %}
+                <li>{{ l }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
